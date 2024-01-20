@@ -1,4 +1,4 @@
-# carmentis-sdk-node
+# carmentis-sdk-nodejs
 
 ## SDK Installation
 
@@ -9,7 +9,7 @@ To install the SDK, first add the dependency to your `package.json` file:
 ```json
 {
     "dependencies": {
-        "carmentis-sdk-node": "git+https://github.com/Carmentis/carmentis-sdk-node.git"
+        "carmentis-sdk-node": "git+https://github.com/Carmentis/carmentis-sdk-nodejs.git"
     }
 }
 ```
@@ -23,7 +23,7 @@ npm install
 Or install it directly using npm (choose one of the following):
 
 ```bash
-npm install git+https://github.com/Carmentis/carmentis-sdk-node.git
+npm install git+https://github.com/Carmentis/carmentis-sdk-nodejs.git
 ```
 ```bash
 npm install git+ssh://git@github.com:Carmentis/carmentis-sdk-nodejs.git

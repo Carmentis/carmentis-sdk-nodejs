@@ -2,7 +2,7 @@
   "name": "carmentis-sdk-nodejs",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "src/Operator/Operator.js",
   "scripts": {
     "test": "jest"
   },

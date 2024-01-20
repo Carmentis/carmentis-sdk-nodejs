@@ -20,10 +20,13 @@ Then, run the following command in your terminal:
 npm install
 ```
 
-Or install it directly using npm:
+Or install it directly using npm (choose one of the following):
 
 ```bash
 npm install git+https://github.com/Carmentis/carmentis-sdk-node.git
+```
+```bash
+npm install git+ssh://git@github.com:Carmentis/carmentis-sdk-nodejs.git
 ```
 
 ## SDK Example Usage
@@ -33,7 +36,7 @@ npm install git+https://github.com/Carmentis/carmentis-sdk-node.git
 Here's an example of using the SDK in your Node.js application:
 
 ```javascript
-const Operator = require('carmentis-sdk-node');
+const Operator = require('carmentis-sdk-nodejs');
 
 async function main() {
     try {

@@ -35,7 +35,7 @@ class Operator {
     }
 
     async confirmRecord(data) {
-        return this.operatorClient.sendRequest('/confirmRecord', { data });
+        return this.operatorClient.sendRequest(new OperatorRequest(OperatorRequest.METHOD_CONFIRM_RECORD, data));
     }
 }
 

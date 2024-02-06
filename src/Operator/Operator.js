@@ -30,7 +30,8 @@ class Operator {
         return this.operatorClient.sendRequest(new OperatorRequest(OperatorRequest.METHOD_GET_APPROVAL_DATA, data));
     }
 
-    async getRecordData(data) {
+    async getRecordData(data, accessRules=['*']) {
+        data.accessRules = accessRules.join(',');
         return this.operatorClient.sendRequest(new OperatorRequest(OperatorRequest.GET_RECORD_DATA, data));
     }
 

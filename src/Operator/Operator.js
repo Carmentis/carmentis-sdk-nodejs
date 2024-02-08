@@ -14,29 +14,62 @@ class Operator {
         return this.operatorClient;
     }
 
+    /**
+     * Get the version of the operator server you're connected to
+     * @async
+     * @returns {Promise<OperatorResponse>}
+     */
     async getOperatorVersion() {
         return this.operatorClient.sendRequest(new OperatorRequest(OperatorRequest.METHOD_GET_OPERATOR_VERSION));
     }
 
-    async saveRecord(data) {
-        return this.operatorClient.sendRequest(new OperatorRequest(OperatorRequest.METHOD_SAVE_RECORD, data));
+    /**
+     * Save a record to the carmentis network
+     * @param application
+     * @param field
+     * @returns {Promise<OperatorResponse>}
+     */
+    async saveRecord(application, field) {
+        return this.operatorClient.sendRequest(new OperatorRequest(OperatorRequest.METHOD_SAVE_RECORD, {application, field}));
     }
 
-    async prepareUserApproval(data) {
-        return this.operatorClient.sendRequest(new OperatorRequest(OperatorRequest.METHOD_PREPARE_USER_APPROVAL, data));
+    /**
+     * Prepare a user approval for a record
+     * @param application
+     * @param field
+     * @param redirectUrl
+     * @returns {Promise<OperatorResponse>}
+     */
+    async prepareUserApproval(application, field, redirectUrl) {
+        return this.operatorClient.sendRequest(new OperatorRequest(OperatorRequest.METHOD_PREPARE_USER_APPROVAL, {application, field, redirect: redirectUrl}));
     }
 
-    async getApprovalData(data) {
-        return this.operatorClient.sendRequest(new OperatorRequest(OperatorRequest.METHOD_GET_APPROVAL_DATA, data));
+    /**
+     * Get the approval data for a record
+     * @param merkleHash
+     * @returns {Promise<OperatorResponse>}
+     */
+    async getApprovalData(merkleHash) {
+        return this.operatorClient.sendRequest(new OperatorRequest(OperatorRequest.METHOD_GET_APPROVAL_DATA, {merkleHash}));
     }
 
-    async getRecordData(data, accessRules=['*']) {
-        data.accessRules = accessRules.join(',');
-        return this.operatorClient.sendRequest(new OperatorRequest(OperatorRequest.GET_RECORD_DATA, data));
+    /**
+     * Get the data for a record
+     * @param merkleHash
+     * @param accessRules - list of fields to decipher in order to be display to the current service provider's user (in a proof page for example). Use * to decipher all fields (default). You (as a service provider) should set it in accordance with your user's role & permissions.
+     * @returns {Promise<OperatorResponse>}
+     */
+    async getRecordData(merkleHash, accessRules=['*']) {
+        return this.operatorClient.sendRequest(new OperatorRequest(OperatorRequest.GET_RECORD_DATA, {merkleHash, accessRules: accessRules.join(',')}));
     }
 
-    async confirmRecord(data) {
-        return this.operatorClient.sendRequest(new OperatorRequest(OperatorRequest.METHOD_CONFIRM_RECORD, data));
+    /**
+     * Confirm a record
+     * @param merkleHash
+     * @returns {Promise<OperatorResponse>}
+     */
+    async confirmRecord(merkleHash) {
+        return this.operatorClient.sendRequest(new OperatorRequest(OperatorRequest.METHOD_CONFIRM_RECORD, {merkleHash}));
     }
 }
 

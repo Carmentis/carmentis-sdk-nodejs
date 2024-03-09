@@ -36,24 +36,31 @@ class Operator {
     /**
      * Prepare a user approval for a record
      * @param application
-     * @param approvingEmailFieldName
-     * @param messageName
+     * @param {object} authentication
      * @param field
-     * @param redirectUrl
+     * @param messageName
+     * @param approvingEmailFieldName
+     * @param {object} redirect
      * @param flowId
      * @returns {Promise<OperatorResponse>}
      */
-    async prepareUserApproval(application, approvingEmailFieldName, messageName, field, redirectUrl, flowId=null) {
+    async prepareUserApproval(application, authentication, field, messageName, approvingEmailFieldName, redirect, flowId = null) {
         return this.operatorClient.sendRequest(
             new OperatorRequest(
                 OperatorRequest.METHOD_PREPARE_USER_APPROVAL,
                 {
                     application,
+                    authentication: {
+                        method: authentication.method,
+                        id: authentication.id
+                    },
+                    redirect: {
+                        success: redirect.success,
+                        cancel: redirect.cancel,
+                    },
                     field,
                     message: messageName,
-                    email: approvingEmailFieldName,
-                    redirect: redirectUrl,
-                    flowId,
+                    flowId
                 }
             )
         );

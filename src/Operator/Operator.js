@@ -1,7 +1,7 @@
 const OperatorRequest = require('./OperatorRequest');
 const OperatorClient = require('./OperatorClient');
 
-class Operator {
+export class Operator {
     constructor(operatorUrl) {
         this.operatorClient = new OperatorClient(operatorUrl);
     }
@@ -103,5 +103,3 @@ class Operator {
         return this.operatorClient.sendRequest(new OperatorRequest(OperatorRequest.METHOD_CONFIRM_RECORD, {merkleHash}));
     }
 }
-
-module.exports = Operator;

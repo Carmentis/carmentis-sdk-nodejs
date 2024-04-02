@@ -1,6 +1,6 @@
 {
   "name": "carmentis-sdk-nodejs",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "description": "",
   "main": "src/Operator/Operator.js",
   "scripts": {

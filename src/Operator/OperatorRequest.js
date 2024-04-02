@@ -6,6 +6,7 @@ class OperatorRequest {
     static METHOD_PREPARE_USER_APPROVAL = "prepareUserApproval";
     static METHOD_GET_APPROVAL_DATA = "getApprovalData";
     static GET_RECORD_DATA = "getRecordData";
+    static GET_RECORD_INFO = "getRecordInformation";
     static METHOD_CONFIRM_RECORD = "confirmRecord";
 
     constructor(method, data) {
@@ -15,6 +16,7 @@ class OperatorRequest {
             case OperatorRequest.METHOD_PREPARE_USER_APPROVAL:
             case OperatorRequest.METHOD_GET_APPROVAL_DATA:
             case OperatorRequest.GET_RECORD_DATA:
+            case OperatorRequest.GET_RECORD_INFO:
             case OperatorRequest.METHOD_CONFIRM_RECORD:
                 break;
             default:

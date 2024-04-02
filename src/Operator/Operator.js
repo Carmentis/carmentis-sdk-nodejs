@@ -85,7 +85,12 @@ class Operator {
         return this.operatorClient.sendRequest(new OperatorRequest(OperatorRequest.GET_RECORD_DATA, {merkleHash, accessRules: accessRules.join(',')}));
     }
 
-    async getRecordInformation(merkleHash, accessRules=['*']) {
+    /**
+     * Get the information for a record
+     * @param merkleHash
+     * @returns {Promise<OperatorResponse>}
+     */
+    async getRecordInformation(merkleHash) {
         return this.operatorClient.sendRequest(new OperatorRequest(OperatorRequest.GET_RECORD_INFO, {merkleHash}));
     }
 

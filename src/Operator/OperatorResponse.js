@@ -1,23 +1,22 @@
-import OperatorResponseException from "./Exceptions/OperatorResponseException.js";
-class OperatorResponse {
+import OperatorException from "./Exceptions/OperatorException.js";
 
-    data={};
+function createOperatorResponse(response) {
+    response = typeof response === "string" ? JSON.parse(response) : response;
+    let data = {};
 
-    constructor(response) {
-        response = typeof response === "string" ? JSON.parse(response) : response;
-
-        if(response.success === undefined || response.success === false) {
-            throw new OperatorResponseException(response.error ?? 'Invalid response');
-        } else {
-            if(response.data !== undefined) {
-                this.data = response.data;
-            }
+    if (response.success === undefined || response.success === false) {
+        throw new OperatorException(response.error ?? 'Invalid response');
+    } else {
+        if (response.data !== undefined) {
+            data = response.data;
         }
     }
 
-    getData() {
-        return this.data;
+    function getData() {
+        return data;
     }
+
+    return { getData };
 }
 
-export default OperatorResponse;
+export default createOperatorResponse;

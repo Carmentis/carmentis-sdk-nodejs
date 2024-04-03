@@ -1,107 +1,72 @@
 import OperatorRequest from './OperatorRequest.js';
-import OperatorClient from './OperatorClient.js';
+import createOperatorClient from './OperatorClient.js';
+import createOperatorRequest from "./OperatorRequest.js";
 
-class Operator {
-    constructor(operatorUrl) {
-        this.operatorClient = new OperatorClient(operatorUrl);
+function Operator(operatorUrl) {
+    let operatorClient = createOperatorClient(operatorUrl);
+
+    function setOperatorUrl(newOperatorUrl) {
+        operatorClient = createOperatorClient(newOperatorUrl);
     }
 
-    setOperatorUrl(operatorUrl) {
-        this.operatorClient = new OperatorClient(operatorUrl);
+    function getClient() {
+        return operatorClient;
     }
 
-    getClient() {
-        return this.operatorClient;
+    async function getOperatorVersion() {
+        return operatorClient.sendRequest(createOperatorRequest("getOperatorVersion"));
     }
 
-    /**
-     * Get the version of the operator server you're connected to
-     * @async
-     * @returns {Promise<OperatorResponse>}
-     */
-    async getOperatorVersion() {
-        return this.operatorClient.sendRequest(new OperatorRequest(OperatorRequest.METHOD_GET_OPERATOR_VERSION));
+    async function saveRecord(application, field) {
+        return operatorClient.sendRequest(createOperatorRequest("saveRecord", { application, field }));
     }
 
-    /**
-     * Save a record to the carmentis network
-     * @param application
-     * @param field
-     * @returns {Promise<OperatorResponse>}
-     */
-    async saveRecord(application, field) {
-        return this.operatorClient.sendRequest(new OperatorRequest(OperatorRequest.METHOD_SAVE_RECORD, {application, field}));
-    }
-
-    /**
-     * Prepare a user approval for a record
-     * @param application
-     * @param {object} authentication
-     * @param field
-     * @param messageName
-     * @param approvingEmailFieldName
-     * @param {object} redirect
-     * @param flowId
-     * @returns {Promise<OperatorResponse>}
-     */
-    async prepareUserApproval(application, authentication, field, messageName, approvingEmailFieldName, redirect, flowId = null) {
-        return this.operatorClient.sendRequest(
-            new OperatorRequest(
-                OperatorRequest.METHOD_PREPARE_USER_APPROVAL,
-                {
-                    application,
-                    authentication: {
-                        method: authentication.method,
-                        id: authentication.id
-                    },
-                    redirect: {
-                        success: redirect.success,
-                        cancel: redirect.cancel,
-                    },
-                    field,
-                    message: messageName,
-                    flowId
-                }
-            )
+    async function prepareUserApproval(application, authentication, field, messageName, approvingEmailFieldName, redirect, flowId = null) {
+        return operatorClient.sendRequest(
+            createOperatorRequest("prepareUserApproval", {
+                application,
+                authentication: {
+                    method: authentication.method,
+                    id: authentication.id
+                },
+                redirect: {
+                    success: redirect.success,
+                    cancel: redirect.cancel,
+                },
+                field,
+                message: messageName,
+                approvingEmailFieldName,
+                flowId
+            })
         );
     }
 
-    /**
-     * Get the approval data for a record
-     * @param merkleHash
-     * @returns {Promise<OperatorResponse>}
-     */
-    async getApprovalData(merkleHash) {
-        return this.operatorClient.sendRequest(new OperatorRequest(OperatorRequest.METHOD_GET_APPROVAL_DATA, {merkleHash}));
+    async function getApprovalData(merkleHash) {
+        return operatorClient.sendRequest(createOperatorRequest("getApprovalData", { merkleHash }));
     }
 
-    /**
-     * Get the data for a record
-     * @param merkleHash
-     * @param accessRules - list of fields to decipher in order to be display to the current service provider's user (in a proof page for example). Use * to decipher all fields (default). You (as a service provider) should set it in accordance with your user's role & permissions.
-     * @returns {Promise<OperatorResponse>}
-     */
-    async getRecordData(merkleHash, accessRules=['*']) {
-        return this.operatorClient.sendRequest(new OperatorRequest(OperatorRequest.GET_RECORD_DATA, {merkleHash, accessRules: accessRules.join(',')}));
+    async function getRecordData(merkleHash, accessRules = ['*']) {
+        return operatorClient.sendRequest(createOperatorRequest("getRecordData", { merkleHash, accessRules: accessRules.join(',') }));
     }
 
-    /**
-     * Get the information for a record
-     * @param merkleHash
-     * @returns {Promise<OperatorResponse>}
-     */
-    async getRecordInformation(merkleHash) {
-        return this.operatorClient.sendRequest(new OperatorRequest(OperatorRequest.GET_RECORD_INFO, {merkleHash}));
+    async function getRecordInformation(merkleHash) {
+        return operatorClient.sendRequest(createOperatorRequest("getRecordInformation", { merkleHash }));
     }
 
-    /**
-     * Confirm a record
-     * @param merkleHash
-     * @returns {Promise<OperatorResponse>}
-     */
-    async confirmRecord(merkleHash) {
-        return this.operatorClient.sendRequest(new OperatorRequest(OperatorRequest.METHOD_CONFIRM_RECORD, {merkleHash}));
+    async function confirmRecord(merkleHash) {
+        return operatorClient.sendRequest(createOperatorRequest("confirmRecord", { merkleHash }));
     }
+
+    // Expose public methods
+    return {
+        getOperatorVersion,
+        saveRecord,
+        prepareUserApproval,
+        getApprovalData,
+        getRecordData,
+        getRecordInformation,
+        confirmRecord,
+    };
 }
 
-export default Operator
+export default Operator;

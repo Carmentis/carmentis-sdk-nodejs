@@ -1,29 +1,23 @@
 import axios from 'axios';
-import OperatorResponseException from './Exceptions/OperatorResponseException.js';
+import OperatorException from "./Exceptions/OperatorException.js";
 
-class OperatorClient {
+function createOperatorClient(operatorUrl) {
+    const httpClient = axios.create({
+        baseURL: operatorUrl,
+        timeout: 1000,
+        headers: { 'Content-Type': 'application/json' }
+    });
 
-    httpClient = {};
-    constructor(operatorUrl) {
-        this.httpClient = axios.create({
-            baseURL: operatorUrl,
-            timeout: 1000,
-            headers: { 'Content-Type': 'application/json' }
-        });
-    }
-
-    /**
-     * @param {OperatorRequest} operatorRequest
-     * @returns {Promise<OperatorResponse>}
-     */
-    async sendRequest(operatorRequest) {
+    async function sendRequest(operatorRequest) {
         try {
-            const response = await this.httpClient.post(operatorRequest.method, operatorRequest.data);
+            const response = await httpClient.post(operatorRequest.method, operatorRequest.data);
             return response.data;
         } catch (error) {
-            throw new OperatorResponseException(`${error.message}`);
+            throw OperatorException(`${error.message}`);
         }
     }
+
+    return { sendRequest };
 }
 
-export default OperatorClient;
+export default createOperatorClient;

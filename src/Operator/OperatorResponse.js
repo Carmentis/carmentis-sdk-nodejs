@@ -1,4 +1,4 @@
-import OperatorResponseException from "./Exceptions/OperatorResponseException";
+import OperatorResponseException from "./Exceptions/OperatorResponseException.js";
 class OperatorResponse {
 
     data={};

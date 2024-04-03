@@ -1,5 +1,5 @@
-import OperatorRequest from './OperatorRequest';
-import OperatorClient from './OperatorClient';
+import OperatorRequest from './OperatorRequest.js';
+import OperatorClient from './OperatorClient.js';
 
 class Operator {
     constructor(operatorUrl) {

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import OperatorResponseException from './Exceptions/OperatorResponseException';
+import OperatorResponseException from './Exceptions/OperatorResponseException.js';
 
 class OperatorClient {
 

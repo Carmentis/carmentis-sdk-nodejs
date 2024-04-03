@@ -1,1 +1,1 @@
-import Operator from "./Operator/Operator.mjs";
+import Operator from "./Operator/Operator.js";

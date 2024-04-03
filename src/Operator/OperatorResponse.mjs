@@ -1,5 +1,4 @@
-require('./Exceptions/OperatorResponseException');
-
+import OperatorResponseException from "./Exceptions/OperatorResponseException";
 class OperatorResponse {
 
     data={};
@@ -21,4 +20,4 @@ class OperatorResponse {
     }
 }
 
-module.exports = OperatorResponse;
+export default OperatorResponse;

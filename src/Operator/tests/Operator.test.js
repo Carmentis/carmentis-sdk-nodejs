@@ -1,9 +1,4 @@
-const Operator = require('../Operator');
-
-/*
-const axios = require('axios');
-jest.mock('axios');
-*/
+import Operator from '../Operator';
 
 describe('Operator', () => {
     describe('getVersion', () => {

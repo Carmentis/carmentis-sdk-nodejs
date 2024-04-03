@@ -1,5 +1,4 @@
-require('./Exceptions/OperatorRequestException');
-
+import OperatorException from './Exceptions/OperatorException';
 class OperatorRequest {
     static METHOD_GET_OPERATOR_VERSION = "getOperatorVersion";
     static METHOD_SAVE_RECORD = "saveRecord";
@@ -35,4 +34,4 @@ class OperatorRequest {
     }
 }
 
-module.exports = OperatorRequest;
+export default OperatorRequest;

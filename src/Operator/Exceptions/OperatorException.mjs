@@ -1,3 +1,3 @@
 class OperatorException extends Error {}
 
-module.exports = OperatorException;
+export default OperatorException;

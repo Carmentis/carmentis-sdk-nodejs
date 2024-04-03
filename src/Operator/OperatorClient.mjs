@@ -1,5 +1,5 @@
-const axios = require('axios').default;
-const OperatorResponseException = require('./Exceptions/OperatorResponseException');
+import axios from 'axios';
+import OperatorResponseException from './Exceptions/OperatorResponseException';
 
 class OperatorClient {
 
@@ -26,4 +26,4 @@ class OperatorClient {
     }
 }
 
-module.exports = OperatorClient;
+export default OperatorClient;
